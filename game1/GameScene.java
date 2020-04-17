@@ -4,9 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,14 +20,17 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author USER
  */
 public class GameScene extends GAME1{
-    private static int x = 15;
-    private static int y = 15;
+    private static int x = 2;
+    private static int y = 2;
+    private static int z = 2;
+    private static int playerScore=0;
     private ArrayList<Line> lineArrayList;
      public static void gameScene(Group layout, Scene scn) throws FileNotFoundException{
             //image2
@@ -34,8 +40,8 @@ public class GameScene extends GAME1{
         //adding pictures to rectangle below:
         FileInputStream input = new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\shredder.png");
         Image img3 = new Image(input);
-        ImagePattern image_pattern = new ImagePattern(img3, x, y, 1, 1, true);
-        Rectangle rect = new Rectangle(x, y, 40, 40);
+        ImagePattern image_pattern = new ImagePattern(img3, 15, 15, 1, 1, true);
+        Rectangle rect = new Rectangle(15, 15, 40, 40);
         rect.setFill(image_pattern);
         
  FileInputStream inputCoin = new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\download.jpg");
@@ -56,6 +62,11 @@ circle1.setFill(image_Coin);
 circle2.setCenterY(50.0f);
 circle2.setRadius(10.0f);
 circle2.setFill(image_Coind);
+Circle circle3=new Circle();
+circle3.setCenterX(250.0f);
+circle3.setCenterY(250.0f);
+circle3.setRadius(10.0f);
+circle3.setFill(image_Coin);
 
 
         //image2 specification starts:
@@ -102,9 +113,29 @@ circle2.setFill(image_Coind);
         layout.getChildren().addAll(lineArrayList);
         layout.getChildren().add(circle2);
       layout.getChildren().add(circle1);
+       layout.getChildren().add(circle3);
+       
+       Label goal = new Label("GOAL:50");
+        goal.setTextFill(Color.BLUE);
+       goal.setAlignment(Pos.BOTTOM_CENTER);
+        goal.setPadding(new Insets(570,570, 225, 225));
+        layout.getChildren().add(goal);
+        Label score=new Label("SCORE:");
+        score.setTextFill(Color.DARKBLUE);
+        score.setAlignment(Pos.BOTTOM_CENTER);
+        score.setPadding(new Insets(570,570, 350,350));
+        layout.getChildren().add(score);
+        
+         Label plrScore=new Label();
+        plrScore.setTextFill(Color.DARKBLUE);
+        plrScore.setAlignment(Pos.BOTTOM_CENTER);
+        plrScore.setText(Integer.toString(playerScore));
+        plrScore.setPadding(new Insets(570,570,390,390));
+        layout.getChildren().add(plrScore);
         
         EnemyClass.enemyChar(rect,layout);//calling enemy class
         Enemy2.enemyChar(rect, layout);//calling another
+       Rectangle rect2= BossFarmer.BossChar(rect, layout);
         
         scn.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() {
             @Override
@@ -125,10 +156,41 @@ circle2.setFill(image_Coind);
       }
       if(rect.getBoundsInParent().intersects(circle1.getBoundsInParent())){
           System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(x==2){
+              circle1.relocate(440, 465);
+              x--;
+          }
+          else{
+              circle1.relocate(328, 200);
+              x++;
+          }
       }
        if(rect.getBoundsInParent().intersects(circle2.getBoundsInParent())){
           System.out.println("diamond");
-           circle2.relocate(500, 500);
+           plrScore.setText(Integer.toString(playerScore+=10));
+           if(y==2){
+              circle2.relocate(250, 167);
+              y--;
+               
+          }
+          else{
+              circle2.relocate(90, 450);
+              y++;
+          }
+      }
+       if(rect.getBoundsInParent().intersects(circle3.getBoundsInParent())){
+          System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(z==2){
+              circle1.relocate(510, 450);
+              z--;
+          }
+          else{
+              circle1.relocate(328,75);
+              z++;
+          }
+           
       }
                 } else if (event.getCode() == KeyCode.LEFT) {
                     rect.setLayoutX(rect.getLayoutX() - 10);
@@ -145,10 +207,42 @@ circle2.setFill(image_Coind);
       }
                     if(rect.getBoundsInParent().intersects(circle1.getBoundsInParent())){
           System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(x==2){
+              circle1.relocate(440, 465);
+              x--;
+          }
+          else{
+              circle1.relocate(328, 200);
+              x++;
+          }
+                      
       }
        if(rect.getBoundsInParent().intersects(circle2.getBoundsInParent())){
           System.out.println("diamond");
-           circle2.relocate(500, 500);
+           plrScore.setText(Integer.toString(playerScore+=10));
+            if(y==2){
+              circle2.relocate(250, 167);
+              y--;
+               
+          }
+          else{
+              circle2.relocate(90, 450);
+              y++;
+          }
+      }
+        if(rect.getBoundsInParent().intersects(circle3.getBoundsInParent())){
+          System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(z==2){
+              circle1.relocate(510, 450);
+              z--;
+          }
+          else{
+              circle1.relocate(328,75);
+              z++;
+          }
+           
       }
                 } else if (event.getCode() == KeyCode.UP) {
                     rect.setLayoutY(rect.getLayoutY() - 10);
@@ -165,10 +259,40 @@ circle2.setFill(image_Coind);
       }
                     if(rect.getBoundsInParent().intersects(circle1.getBoundsInParent())){
           System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(x==2){
+              circle1.relocate(440, 465);
+              x--;
+          }
+          else{
+              circle1.relocate(328, 200);
+              x++;
+          }
       }
        if(rect.getBoundsInParent().intersects(circle2.getBoundsInParent())){
           System.out.println("diamond");
-           circle2.relocate(500, 500);
+           plrScore.setText(Integer.toString(playerScore+=10));
+            if(y==2){
+              circle2.relocate(250, 167);
+              y--;
+          }
+          else{
+              circle2.relocate(90, 450);
+              y++;
+          }
+      }
+        if(rect.getBoundsInParent().intersects(circle3.getBoundsInParent())){
+          System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(z==2){
+              circle1.relocate(510, 450);
+              z--;
+          }
+          else{
+              circle1.relocate(328,75);
+              z++;
+          }
+           
       }
                 } else if (event.getCode() == KeyCode.DOWN) {
                     rect.setLayoutY(rect.getLayoutY() + 10);
@@ -185,12 +309,48 @@ circle2.setFill(image_Coind);
       }
                     if(rect.getBoundsInParent().intersects(circle1.getBoundsInParent())){
           System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(x==2){
+              circle1.relocate(440, 465);
+              x--;
+          }
+          else{
+              circle1.relocate(328, 200);
+              x++;
+          }
          
       }
        if(rect.getBoundsInParent().intersects(circle2.getBoundsInParent())){
           System.out.println("diamond");
-          circle2.relocate(500, 500);
+           plrScore.setText(Integer.toString(playerScore+=10));
+     if(y==2){
+              circle2.relocate(250, 167);
+              y--;
+          }
+          else{
+              circle2.relocate(90, 450);
+              y++;
+          }
       }
+        if(rect.getBoundsInParent().intersects(circle3.getBoundsInParent())){
+          System.out.println("gold");
+          plrScore.setText(Integer.toString(playerScore+=6));
+          if(z==2){
+              circle1.relocate(510, 450);
+              z--;
+          }
+          else{
+              circle1.relocate(328,75);
+              z++;
+          }
+           
+      }
+        if(rect.getBoundsInParent().intersects(rect2.getBoundsInParent())){
+            if(playerScore>=50)
+            JOptionPane.showMessageDialog(null, "YOU LOSE");
+            else
+            JOptionPane.showMessageDialog(null, "YOU WIN");
+        }
                 }
             }
         });
