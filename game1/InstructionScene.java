@@ -77,11 +77,17 @@ public class InstructionScene extends Scene{
             backgroundImg.setFitHeight(600);
             backgroundImg.setFitWidth(600); //these values are set so that the image can fit the stage/scene;
             
-             this.playButton = new Button("I AM READY TO PLAY");//clicking on this playButton takes you to the next screen;
+            //this string is used for making button a little bit round and setting background color
+   String styles =
+         "-fx-background-radius:100;"
+         +"-fx-background-color:LIGHTBLUE"
+         ;
+   
+             this.playButton = new Button("READY TO PLAY");//clicking on this playButton takes you to the next screen;
 
             playButton.setLayoutX(225);//position in the x axis.
             playButton.setLayoutY(450);//position in the Y axix;
-            
+            playButton.setStyle(styles);
             layout2.getChildren().add(backgroundImg);//here the image1 is being added to the layout.
             layout2.getChildren().add(playButton);
             

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
@@ -18,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.ENTER;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.LineTo;
@@ -25,6 +28,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import sun.audio.AudioPlayer;
@@ -47,38 +51,30 @@ public class GAME1 extends Application {
     private int y = 25;
     private int speedX = 1;
     private int speedY = 1;
-    
-    
   
-    
-    
-
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         this.window = primaryStage;
+         Group layout2 = new Group();
+        scn = new Scene(layout2, 600, 600);
+     //   GameScene.gameScene(layout2,scn,window);
+        
+         Group instructionSceneLayout=new Group();
+        this.instructionScene=new InstructionScene(instructionSceneLayout,600,600);
 
         Group initialSceneLayout = new Group();
-        this.initialScene = new InitialScene(initialSceneLayout, 600, 600);//here all the components of scene1 is being integrated.
+        this.initialScene = new InitialScene(initialSceneLayout, 650, 600,instructionScene,window);//here all the components of scene1 is being integrated.
         
         Button playButton = initialScene.getPlayButton();
         Button registerButton=initialScene.getRegisterButton();
-        playButton.setOnAction(e -> window.setScene(instructionScene));//here i used lambda expression to switch between the scenes;
-        //registerButton.setOnAction(e-> window.setScene(registrationScene));
+    
         registerButton.setOnMouseClicked(event -> {
-           window.setScene(registrationScene);
+          window.setScene(registrationScene);
+          
            
         });
-         
-        //->here i am joining the button with enter key below.
-        playButton.setOnKeyPressed(
-                event -> {
-                    switch (event.getCode()) {
-                        case ENTER:
-                            window.setScene(instructionScene);
-                    }
-                }
-        );
-        registerButton.setOnKeyPressed(
+       
+        registerButton.setOnKeyPressed(//settinh keyboard control for register button
                 event -> {
                     switch (event.getCode()) {
                         case ENTER:
@@ -89,33 +85,37 @@ public class GAME1 extends Application {
         );
      
         
-        //<<joining the button1 with keyboard's enter key is complete..*/
+        
+        Button InstructionButton=instructionScene.getPlayButton();//calling the getter setter function to retrieve the button form another class
+       // InstructionButton.setOnAction(e ->{window.setScene(scn)});//adding action to instructionButton
+       InstructionButton.setOnMouseClicked(event -> {
+            try { 
+                GameScene.gameScene(layout2,scn,window);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(GAME1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          window.setScene(scn);
 
-        //adding instruction scene:
-        Group instructionSceneLayout=new Group();
-        this.instructionScene=new InstructionScene(instructionSceneLayout,600,600);
-        Button InstructionButton=instructionScene.getPlayButton();
-        InstructionButton.setOnAction(e -> window.setScene(scn));
+        });
 //adding complete.
 
 
 //adding registration scene:
-Group registrationSceneLayout=new Group();
-        this.registrationScene=new RegistrationScene(registrationSceneLayout,600,600);
-        Button regiCompleteButton=registrationScene.getPlayButton();
-        regiCompleteButton.setOnAction(e -> window.setScene(instructionScene));
+GridPane registrationSceneLayout=new GridPane();//creating gridpane
+        this.registrationScene=new RegistrationScene(registrationSceneLayout);//passing layout as parameter
+        Button regiCompleteButton=registrationScene.backLoginButton();//getter setter function call to retrieve a button
+        regiCompleteButton.setOnAction(e -> window.setScene(initialScene));//adding control to the button
         //adding complete.
 
-              Group layout2 = new Group();
-        scn = new Scene(layout2, 600, 600);
-        GameScene.gameScene(layout2,scn);
-        window.setScene(initialScene);
+             
+        window.setScene(initialScene);//passing the scene as parameter which the user will se first
         window.show();
-   
+        
+        
     }
 
     public static void main(String[] args) {
-      //  setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\IntroMusic.wav");
+       //setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\IntroMusic.wav");//activating music
         launch(args);
     }
 
@@ -123,7 +123,7 @@ Group registrationSceneLayout=new Group();
     public static void setupGame(String filePath) { 
         InputStream music;
         try {
-            music = new FileInputStream(new File(filePath));
+            music = new FileInputStream(new File(filePath));//adding music file
             AudioStream audios = new AudioStream(music);
             AudioPlayer.player.start(audios);
         } catch (Exception e) {
@@ -131,6 +131,8 @@ Group registrationSceneLayout=new Group();
         }
 
     }
+    
+    
 
 } 
 
