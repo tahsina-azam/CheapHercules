@@ -20,6 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javax.mail.MessagingException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,7 +48,7 @@ public class RegistrationScene extends Scene{
       TextField emailField=new TextField();
       TextField nameField=new TextField();
       TextField birthdayField=new TextField();
-      TextField passwordField=new TextField();
+      PasswordField passwordField=new PasswordField();
       TextField mobilePhoneNoField=new TextField();
       
       //Creating buttons
@@ -162,6 +166,16 @@ grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_
    //helping method for  registration button
        public void connectDB() throws SQLException{
         //Connect to MySQL
+       boolean verification=false;
+           JFrame frame=new JFrame();
+           
+         try {
+             verification= javaMail.check(emailField.getText());
+         } catch (MessagingException ex) {
+             Logger.getLogger(RegistrationScene.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         if(verification){
+        //Connect to MySQL
         try{
             // connecting to the database
             try(Connection connection =DriverManager.getConnection("jdbc:mysql://localhost/javadb","root",""))
@@ -186,6 +200,8 @@ grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_
                
                statement.execute();
                 System.out.println("DB updated");
+                
+                JOptionPane.showMessageDialog(frame,"Sign in completed\n","",JOptionPane.INFORMATION_MESSAGE);
 
              
         }
@@ -193,9 +209,12 @@ grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_
         
         catch(SQLException e){
             System.out.println("DB failed!");
+            JOptionPane.showMessageDialog(frame,"Sorry \n This Email already exists !!\n","",JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
             
         }
+        
+       }
         
        }
   

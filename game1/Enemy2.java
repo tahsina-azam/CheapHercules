@@ -5,6 +5,7 @@
  */
 package game1;
 
+import static game1.GAME1.setupGame;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.concurrent.Callable;
@@ -114,6 +115,7 @@ public class Enemy2 {
               if(r==1)
                     {
                         JOptionPane.showMessageDialog(null, "Game over");
+                         setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\lose.wav");//activating music
                         GameScene.timerStop();
                         int zero=0;
                 plrScore.setText(Integer.toString(zero));
@@ -125,6 +127,7 @@ public class Enemy2 {
                   else if(r==2 && timeSeconds5.getValue()==0)
                   {
                       JOptionPane.showMessageDialog(null, "Game over");
+                       setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\lose.wav");//activating music
                       LevelTwo.timerStop();
                       LevelTwo.autoScroll();
                       int zero=0;
@@ -138,6 +141,7 @@ public class Enemy2 {
                   else if(r==3 && timeSeconds5.getValue()==0)
                   {
                       JOptionPane.showMessageDialog(null, "Game over");
+                       setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\lose.wav");//activating music
                       LevelThree.timerStop();
                       LevelThree.autoScroll2();
                       int zero=0;

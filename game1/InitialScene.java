@@ -29,6 +29,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -142,7 +143,7 @@ public class InitialScene extends Scene {
             // imageView.setPreserveRatio(true); 
             //image2 specification ends..
             //->button1 specification starts:
-            this.playButton = new Button("CLICK TO PLAY");//clicking on this playButton takes you to the next screen;
+            this.playButton = new Button("FORGET PASSWORD");//clicking on this playButton takes you to the next screen;
              playButton.setLayoutX(450);//position in the x axis.
             playButton.setLayoutY(390);//position in the Y axix;
             String styles =
@@ -194,6 +195,16 @@ public class InitialScene extends Scene {
         okButton.setOnAction(e-> {
       checkDB(nickNameField,passField,gameScene,Window);
     });
+         playButton.setOnAction(e->{//-----------------------------------------new add
+            try {
+                System.out.println("in reset");
+                ResetPassword.reset();
+            } catch (MessagingException ex) {
+                Logger.getLogger(InitialScene.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(e);
+            }
+        });
+        
     }
     //creating a method to check if the email and password provided by the player is correct
     private void  checkDB(TextField email, PasswordField password,Scene scn,Stage window){
@@ -221,10 +232,10 @@ public class InitialScene extends Scene {
                   //-----------------------------------------------------------------------------------------------
                    window.setScene(scn);
                   // if the provided password and email are correct we will playbutton the access to our insttructionscene
-                  playButton.setOnMouseClicked(event -> {
-           window.setScene(scn);
+               //   playButton.setOnMouseClicked(event -> {------------------------------------------
+         //  window.setScene(scn);-----------------------------------------
            
-        });
+       // });------------------------------------------------------------------------------------------------------------------
                   System.out.println("login done");
               }
               else

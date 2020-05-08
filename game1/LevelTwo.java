@@ -1,6 +1,7 @@
 
 package game1;
 
+import static game1.GAME1.setupGame;
 import static game1.GameScene.playerScore;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -58,8 +59,6 @@ public class LevelTwo extends GAME1{
         
       Image image = new Image(new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\surface.png")); //path of the image is given here for first scene;
 
-            
-            // ScrollPane scrollPane = new ScrollPane();
              scrollPane.setFitToHeight(true);
              scrollPane.setFitToWidth(true);
              scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -85,7 +84,7 @@ public class LevelTwo extends GAME1{
                 timer.setStyle("-fx-font-size: 1.3em;");
                
              
-             Label goal = new Label("GOAL:50");//the parameter is a string which will show the target of the player in the console
+             Label goal = new Label("GOAL:60");//the parameter is a string which will show the target of the player in the console
         goal.setTextFill(Color.BLACK);//passing the color of the label as the parameter
         goal.setStyle("-fx-font-size: 1.2em;");///newwwwllllyyy added
       goal.setLayoutX(200);
@@ -181,29 +180,22 @@ public class LevelTwo extends GAME1{
       //  ImagePattern imgptrn_bullet = new ImagePattern(imgBullet, projectileRadius, 10, 1, 1, true);//passing image object,coordinates,ratio as parameter
                  
             rect.setFill(image_pattern);//filling the character with image pattern
-              backgroundImg.setFitHeight(734);
-            backgroundImg.setFitWidth(840); //th
-            gp.getChildren().add(backgroundImg);
-            gp.getChildren().add(rect);
+              backgroundImg.setFitHeight(734);//passing the height as parameter
+            backgroundImg.setFitWidth(840); //passing the width as parameter
+            gp.getChildren().add(backgroundImg);//adding background image 
+            gp.getChildren().add(rect);//adding components to the group
             gp.getChildren().addAll(lineArrayList);
-          //  gp.getChildren().addAll(sb1,sb2);
-            
-       
+    
         scrollPane.setContent(gp);
-       //// scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-       // scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-       
-      
+     
        Rectangle rectShield=ProtectiveSuit.suitCreation(gp);
-     //  gp.getChildren().add(rectShield);
-        //scrollPane.
-        
+     
         root.getChildren().addAll(scrollPane,marks);
-        //scene.setRoot(root);
+        //scene.setRoo(root);
          EnemyClass.enemyChar(rect,gp,plrScore,2);//calling enemy class--------------------------------------------------------------------------->
         Enemy2.enemyChar(rect,gp,plrScore,2);//calling another-------------------------------------------------------------------------------------->
-        Level2Enemy3.enemyChar(rect, gp, plrScore,2);
-        Rectangle rect2=HomeChar.homeChar(rect, gp);
+        Level2Enemy3.enemyChar(rect, gp, plrScore,2);//calling 3rd enemy class
+        Rectangle rect2=HomeChar.homeChar(rect, gp);//adding destination object to the group
         
         //creation of panes for the third level
         VBox rootL3=new VBox();
@@ -213,7 +205,7 @@ public class LevelTwo extends GAME1{
         //coins
         
         //adding picture to the coin
- FileInputStream inputCoin = new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\download.jpg");
+ FileInputStream inputCoin = new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\download.jpg");//creating the picture of the gold coin
         Image imgCoin = new Image(inputCoin);
         ImagePattern image_Coin = new ImagePattern(imgCoin, 340, 350, 1,1 , true);        
        Circle circle1 = new Circle(); //creating circle as object
@@ -224,7 +216,7 @@ circle1.setFill(image_Coin);
 
 
 //diamond coin making
-      FileInputStream inputCoind = new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\vector-diamonds.png");
+      FileInputStream inputCoind = new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\vector-diamonds.png");//creating the picture of the diamond coin
         Image imgCoind = new Image(inputCoind);
         ImagePattern image_Coind = new ImagePattern(imgCoind, 330, 350, 1,1 , true);        
        Circle circle2 = new Circle(); 
@@ -520,10 +512,11 @@ circle3.setFill(image_Coin);
       }
         if(rect.getBoundsInParent().intersects(rect2.getBoundsInParent())){
            
-            if(playerScore>=5 && timeSeconds2.getValue()>0)
+            if(playerScore>=60 && timeSeconds2.getValue()>0)
             {
                 
                 JOptionPane.showMessageDialog(null, "YOU WIN");
+                 setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\winning.wav");//activating music
                 try {
                     LevelThree.levelThreeScene(groupL3, sceneLevelThree, rootL3);
                 } catch (FileNotFoundException ex) {
@@ -576,10 +569,7 @@ circle3.setFill(image_Coin);
      public static void timerStop(){
          
          STARTTIME2=70;
-         /* timerLabel.textProperty().bind(timeSeconds.asString());//label adding
-        timerLabel.setTextFill(Color.BLACK);
-        timerLabel.setPadding(new Insets(570,570, 390,390));
-        timerLabel.setStyle("-fx-font-size: 1.3em;");*/
+         
         if (timeLine2 != null) {
                     timeLine2.stop();
                 }

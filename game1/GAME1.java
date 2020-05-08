@@ -109,13 +109,14 @@ GridPane registrationSceneLayout=new GridPane();//creating gridpane
 
              
         window.setScene(initialScene);//passing the scene as parameter which the user will se first
+        setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\IntroMusic.wav");//activating music
         window.show();
         
         
     }
 
     public static void main(String[] args) {
-       //setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\IntroMusic.wav");//activating music
+        //setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\IntroMusic.wav");//activating music
         launch(args);
     }
 

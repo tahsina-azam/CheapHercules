@@ -25,7 +25,7 @@ public class ProtectiveSuit {
    static int x;
    static int y;
     public static Rectangle suitCreation(Group layout) throws FileNotFoundException{
-        Random rand=new Random();
+        Random rand=new Random();//using random class to generate random numbers
         int upperBound=4;
         int intRandom=rand.nextInt(upperBound);
       if(intRandom==0){
@@ -49,7 +49,7 @@ public class ProtectiveSuit {
         Image imgShield = new Image(inputShield);//passing image object as parameter
         ImagePattern image_Shield = new ImagePattern(imgShield, 156,390, 1, 1, true);//passing image object,coordinates,ratio as parameter
        rectShield.setFill(image_Shield);
-       layout.getChildren().add(rectShield);
+       layout.getChildren().add(rectShield);//passing rectangle object as a parameter
        return rectShield;
     }
 /*  public static void rectCollisin(Rectangle shot,Rectangle rect)

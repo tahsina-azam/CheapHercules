@@ -1,5 +1,6 @@
 package game1;
 
+import static game1.GAME1.setupGame;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -406,6 +407,7 @@ circle3.setFill(image_Coin);
                 playerScore=0;
                 
                 JOptionPane.showMessageDialog(null, "YOU WIN");
+                 setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\winning.wav");//activating music
                 try {
                     LevelTwo.levelTwoScene(gp, sceneLevelTwo, root,window);
                 } catch (FileNotFoundException ex) {

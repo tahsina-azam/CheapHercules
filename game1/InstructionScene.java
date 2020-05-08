@@ -70,7 +70,7 @@ public class InstructionScene extends Scene{
         //image1 specification starts:
         Image image;
         try {
-            image = new Image(new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\instructionscene.gif")); //path of the image is given here for first scene;
+            image = new Image(new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\Untitled4.gif")); //path of the image is given here for first scene;
 
             this.backgroundImg = new ImageView(image);
 
@@ -86,7 +86,7 @@ public class InstructionScene extends Scene{
              this.playButton = new Button("READY TO PLAY");//clicking on this playButton takes you to the next screen;
 
             playButton.setLayoutX(225);//position in the x axis.
-            playButton.setLayoutY(450);//position in the Y axix;
+            playButton.setLayoutY(470);//position in the Y axix;
             playButton.setStyle(styles);
             layout2.getChildren().add(backgroundImg);//here the image1 is being added to the layout.
             layout2.getChildren().add(playButton);

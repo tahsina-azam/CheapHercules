@@ -5,6 +5,7 @@
  */
 package game1;
 
+import static game1.GAME1.setupGame;
 import static game1.LevelTwo.playerScore;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -73,8 +74,6 @@ public class LevelThree extends GAME1{
      private static Rectangle eneMy1=EnemyClass.getEnemy1();
     private static Rectangle eneMy2=Enemy2.getEnemy2();
     private static Rectangle eneMy3=Level2Enemy3.getEnemy3();
-    
-
                 
     public static void levelThreeScene(Group gp,Scene scene,VBox root)throws FileNotFoundException{
         
@@ -86,67 +85,67 @@ public class LevelThree extends GAME1{
         final double targetY = 70 ;
         final double width = 840 ;
         final double height =720;
-        Circle target = new Circle(targetStartX, targetY, targetRadius, Color.BLUE);
+      /*  Circle target = new Circle(targetStartX, targetY, targetRadius, Color.BLUE);
         TranslateTransition targetMotion = new TranslateTransition(Duration.seconds(2), target);
         targetMotion.setByX(350);
         targetMotion.setAutoReverse(true);
-        targetMotion.setCycleCount(Animation.INDEFINITE);
+        targetMotion.setCycleCount(Animation.INDEFINITE);*/
      
         
       Image image = new Image(new FileInputStream("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\surface.png")); //path of the image is given here for first scene;
 
             
             // ScrollPane scrollPane2 = new ScrollPane();
-             scrollPane2.setFitToHeight(true);
-             scrollPane2.setFitToWidth(true);
-             scrollPane2.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane2.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+             scrollPane2.setFitToHeight(true);//scrollpane will fit the size of the vBox
+             scrollPane2.setFitToWidth(true);//scrollpane will fit the size of the VBox            
+        scrollPane2.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);//Horizontal scrollbar won't be visible
+        scrollPane2.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);//Vertical scrollbar won't be visible
              
-             timerLabel3.textProperty().bind(timeSeconds3.asString());
-        timerLabel3.setTextFill(Color.BLACK);
-        timerLabel3.setLayoutX(390);
-        timerLabel3.setLayoutY(0);
-        timerLabel3.setStyle("-fx-font-size: 1.2em;");
+             timerLabel3.textProperty().bind(timeSeconds3.asString());//creating label for the timing binder
+        timerLabel3.setTextFill(Color.BLACK);//setting color of the label
+        timerLabel3.setLayoutX(390);//passing the coordinate of x axis as a parameter
+        timerLabel3.setLayoutY(0);//passing the coordinate of y axis as a parameter
+        timerLabel3.setStyle("-fx-font-size: 1.2em;");//passing the style of the label
         if (timeLine3 != null) {
-                    timeLine3.stop();
+                    timeLine3.stop();//if the time line is not null it would stop the timeline
                 }
-                timeSeconds3.set(STARTTIME3);
-                timeLine3 = new Timeline();
-                timeLine3.getKeyFrames().add(new KeyFrame(Duration.seconds(STARTTIME3+1),
+                timeSeconds3.set(STARTTIME3);//passing the maximum time as parameter from which we would like to start counting time
+                timeLine3 = new Timeline();//creating timeline
+                timeLine3.getKeyFrames().add(new KeyFrame(Duration.seconds(STARTTIME3+1),//adding keyFrame to keep the track of time
                         new KeyValue(timeSeconds3, 0)));
                 timeLine3.playFromStart();
                 Label timer=new Label("TIMER:");
                 timer.setTextFill(Color.BLACK);//passing the color of the label as the parameter
-                timer.setLayoutX(340);
-                timer.setLayoutY(0);
-                timer.setStyle("-fx-font-size: 1.3em;");
+                timer.setLayoutX(340);//passing x coordinate as parameter
+                timer.setLayoutY(0);//passing y coordinate as parameter
+                timer.setStyle("-fx-font-size: 1.3em;");//passing style as a parameter
                
              
-             Label goal = new Label("GOAL:50");//the parameter is a string which will show the target of the player in the console
+             Label goal = new Label("GOAL:70");//the parameter is a string which will show the target of the player in the console
         goal.setTextFill(Color.BLACK);//passing the color of the label as the parameter
-        goal.setStyle("-fx-font-size: 1.2em;");///newwwwllllyyy added
-      goal.setLayoutX(200);
-       goal.setLayoutY(0);
+        goal.setStyle("-fx-font-size: 1.2em;");///passing style as a parameter
+      goal.setLayoutX(200);//x coordinate as parameter
+       goal.setLayoutY(0);//Y coordinate as parameter
         Label score=new Label("SCORE:");//new label
-        score.setTextFill(Color.BLACK);//passing col
-        score.setStyle("-fx-font-size: 1.2em;");
-      score.setLayoutX(270);
-      score.setLayoutY(0);
+        score.setTextFill(Color.BLACK);//passing color as parameter
+        score.setStyle("-fx-font-size: 1.2em;");//passing style as a parameter
+      score.setLayoutX(270);//x coordinate as parameter
+      score.setLayoutY(0);//Y coordinate as parameter
       
          Label plrScore=new Label();//new label object
         plrScore.setTextFill(Color.BLACK);
         plrScore.setText(Integer.toString(playerScore));//setting the score which is a variable and making it string
-        plrScore.setStyle("-fx-font-size: 1.2em;");
-        plrScore.setLayoutX(320);
-        plrScore.setLayoutY(0);
+        plrScore.setStyle("-fx-font-size: 1.2em;");//passing style as a parameter
+        plrScore.setLayoutX(320);//x coordinate as parameter
+        plrScore.setLayoutY(0);//Y coordinate as parameter
         
             ImageView img_exp=new ImageView(image);
         
-        Group marks= new Group();
-        marks.getChildren().add(img_exp);
-        img_exp.setFitWidth(650); //th
-        img_exp.setFitHeight(20);
-        marks.getChildren().addAll(goal,score,plrScore,timer,timerLabel3); 
+        Group marks= new Group();//creating a new group
+        marks.getChildren().add(img_exp);//adding image
+        img_exp.setFitWidth(650); //passing width so that it matches the width of the group primarily
+        img_exp.setFitHeight(20);//passing width so that it matches the width of the group primarily
+        marks.getChildren().addAll(goal,score,plrScore,timer,timerLabel3); //adding elements to the group
              
               ArrayList<Line> lineArrayList = new ArrayList<Line>();//declaration of a arraylist of line which will form the maze
         lineArrayList.add(new Line(2.0,3.00,838.0,3.0));//passing the coordinates of start and ending point of the line
@@ -195,13 +194,13 @@ public class LevelThree extends GAME1{
           lineArrayList.add(new Line(720.0,266.64,720,731.00));//43
           lineArrayList.add(new Line(660.0,333.35,660.0,731.0));//44
           lineArrayList.add(new Line(540.0,66.67,660.0,66.67));//45
-          lineArrayList.add(new Line(660.0,133.34,660.0,3.0));//46
-          lineArrayList.add(new Line(660.0,133.34,720.0,133.34));//47
-          lineArrayList.add(new Line(720.0,133.34,720.0,66.67));//48
+          lineArrayList.add(new Line(660.0,133.34,660.0,66.67));//46
+        //  lineArrayList.add(new Line(660.0,133.34,720.0,133.34));//47
+          lineArrayList.add(new Line(720.0,133.34,720.0,3.00));//48
           lineArrayList.add(new Line(780.0,66.67,780.0,731.0));//49
           lineArrayList.add(new Line(660.0,133.34,600.0,133.34));//50
             lineArrayList.add(new Line(600.0,133.34,600.0,200.0));//50
-            lineArrayList.add(new Line(780.0,200.0,700.00,200.0));//50
+            lineArrayList.add(new Line(780.0,200.0,600.00,200.0));//50
           for(int i=0;i<52;i++){
                  lineArrayList.get(i).setStrokeWidth(2);
              }
@@ -217,15 +216,15 @@ public class LevelThree extends GAME1{
       //  ImagePattern imgptrn_bullet = new ImagePattern(imgBullet, projectileRadius, 10, 1, 1, true);//passing image object,coordinates,ratio as parameter
                  
             rect.setFill(image_pattern);//filling the character with image pattern
-              backgroundImg.setFitHeight(734);
-            backgroundImg.setFitWidth(840); //th
-            gp.getChildren().add(backgroundImg);
-            gp.getChildren().add(rect);
-            gp.getChildren().addAll(lineArrayList);
+              backgroundImg.setFitHeight(734);//setting the height which would be visible
+            backgroundImg.setFitWidth(840); //setting the width which would be visible
+            gp.getChildren().add(backgroundImg);//adding elements to the group pane
+            gp.getChildren().add(rect);//adding elements to the group pane
+            gp.getChildren().addAll(lineArrayList);//adding elements to the group pane
           //  gp.getChildren().addAll(sb1,sb2);
             //adding new---------------------------------------------------------------------------------------------------------------->
-             Rotate rectRotation=new Rotate(0,rect.getLayoutX()+30,rect.getLayoutY()+30);
-            rect.getTransforms().add(rectRotation);
+             Rotate rectRotation=new Rotate(0,rect.getLayoutX()+30,rect.getLayoutY()+30);//setting rotation
+            rect.getTransforms().add(rectRotation);//getting the trasformation for the rotation
        
         scrollPane2.setContent(gp);
        //// scrollPane2.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -240,8 +239,8 @@ public class LevelThree extends GAME1{
         //scene.setRoot(root);
          EnemyClass.enemyChar(rect,gp,plrScore,3);//calling enemy class---------------------------------------------->
         Enemy2.enemyChar(rect,gp,plrScore,3);//calling another--------------------------------------------------------->
-        Level2Enemy3.enemyChar(rect, gp, plrScore,3);
-        Rectangle rect2=HomeChar.homeChar(rect, gp);
+        Level2Enemy3.enemyChar(rect, gp, plrScore,3);//calling the third enemy
+        Rectangle rect2=HomeChar.homeChar(rect, gp);//calling the class of its destination object and storing it in another rectangle object
         
         Rectangle rectShield=ProtectiveSuit.suitCreation(gp);//-------------------------------------------------------------------->sheild
         Rectangle shootingSkull=ShootingSkull.skullCreation(gp, rect);//------------------------------------------------------------------------>adding pistol
@@ -279,8 +278,8 @@ circle3.setFill(image_Coin);
             public void handle(javafx.scene.input.KeyEvent event) {
 
                 if (event.getCode() == KeyCode.RIGHT) {
-                    rect.setLayoutX(rect.getLayoutX() + 10);
-                    scrollPane2.setHvalue(scrollPane2.getHvalue()+0.02);
+                    rect.setLayoutX(rect.getLayoutX() + 10);//if player press the "HOME" button the player would advance
+                    scrollPane2.setHvalue(scrollPane2.getHvalue()+0.02);//if the player press the "HOME" button the scroll pane would move
                      
       for(int i=0;i<lineArrayList.size();i++){
        if(rect.getBoundsInParent().intersects(lineArrayList.get(i).getBoundsInParent())){//checking collision
@@ -303,7 +302,7 @@ circle3.setFill(image_Coin);
               x--;
           }
           else{
-              circle1.relocate(634, 695);//positions where the coins would appear
+              circle1.relocate(634, 695);//positions where the coins would reappear
               x++;
           }
       }
@@ -360,7 +359,7 @@ circle3.setFill(image_Coin);
                    
                      
                     for(int i=0;i<lineArrayList.size();i++){
-       if(rect.getBoundsInParent().intersects(lineArrayList.get(i).getBoundsInParent())){
+       if(rect.getBoundsInParent().intersects(lineArrayList.get(i).getBoundsInParent())){//checking collisin
     
            lineArrayList.get(i).setStroke(Color.ANTIQUEWHITE);
            rect.setLayoutX(rect.getLayoutX() + 10);
@@ -372,7 +371,7 @@ circle3.setFill(image_Coin);
           lineArrayList.get(i).setStroke(Color.BLACK);  
        }
       }
-                    if(rect.getBoundsInParent().intersects(circle1.getBoundsInParent())){
+                    if(rect.getBoundsInParent().intersects(circle1.getBoundsInParent())){//checking collision
           System.out.println("gold");
           plrScore.setText(Integer.toString(playerScore+=6));
           if(x==2){
@@ -554,10 +553,11 @@ circle3.setFill(image_Coin);
       }
         if(rect.getBoundsInParent().intersects(rect2.getBoundsInParent())){
            
-            if(playerScore>=5 && timeSeconds3.getValue()>0)
+            if(playerScore>=70 && timeSeconds3.getValue()>0)
             {
                 
                 JOptionPane.showMessageDialog(null, "YOU WIN");
+                setupGame("C:\\Users\\USER\\Documents\\NetBeansProjects\\GAME1\\src\\winning.wav");//activating music
                 
             }
             else
@@ -716,10 +716,7 @@ circle3.setFill(image_Coin);
    
   public static void timerStop(){
          STARTTIME3=70;
-         /* timerLabel.textProperty().bind(timeSeconds.asString());//label adding
-        timerLabel.setTextFill(Color.BLACK);
-        timerLabel.setPadding(new Insets(570,570, 390,390));
-        timerLabel.setStyle("-fx-font-size: 1.3em;");*/
+         
         if (timeLine3 != null) {
                     timeLine3.stop();
                 }
